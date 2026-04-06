@@ -234,19 +234,27 @@ function showCategories() {
     });
 }
 
-// Fechar modal ao clicar fora
-document.getElementById('videoModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeVideo();
+// Fechar modal ao clicar fora (só depois que DOM carregar)
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('videoModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideo();
+            }
+        });
     }
-});
-
-// Busca ao pressionar Enter
-document.getElementById('searchInput')?.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        searchVideos();
+    
+    // Busca ao pressionar Enter
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchVideos();
+            }
+        });
     }
+    
+    // Renderizar vídeos iniciais
+    renderVideos(videos);
 });
-
-// Inicializar
-renderVideos(videos);
