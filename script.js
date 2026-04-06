@@ -184,15 +184,17 @@ function openVideo(videoId) {
     `).join('');
 
     container.innerHTML = `
-        <div class="video-layout">
+        <div class="video-layout-vertical">
             <div class="main-video">
                 <iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1" 
                         allowfullscreen>
                 </iframe>
             </div>
-            <div class="recommendations">
-                <h3><i class="fas fa-fire"></i> Recomendados</h3>
-                ${recsHTML}
+            <div class="recommendations-horizontal">
+                <h3><i class="fas fa-fire"></i> Recomendados para você</h3>
+                <div class="rec-grid">
+                    ${recsHTML}
+                </div>
             </div>
         </div>
     `;
