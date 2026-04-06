@@ -107,6 +107,15 @@
             
             <!-- Conteúdo do Player -->
             <div class="player-content">
+                <!-- Tags -->
+                <div class="filter-tags player-tags">
+                    <button class="tag" onclick="filterFromPlayer('all')">Todos</button>
+                    <button class="tag" onclick="filterFromPlayer('standup')">Stand-up</button>
+                    <button class="tag" onclick="filterFromPlayer('vine')">Vines</button>
+                    <button class="tag" onclick="filterFromPlayer('compilacao')">Compilações</button>
+                    <button class="tag" onclick="filterFromPlayer('fail')">Fail Moments</button>
+                </div>
+                
                 <!-- Vídeo -->
                 <div class="modal-video-section">
                     <div class="video-wrapper" id="videoWrapper"></div>

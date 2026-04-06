@@ -81,7 +81,14 @@ body {
     color: #fff;
 }
 
-/* Sidebar */
+/* Tags no player */
+.player-tags {
+    max-width: 1200px;
+    margin: 15px auto;
+    padding: 0 20px;
+}
+
+/* Sidebar deve ficar acima do modal */
 .sidebar {
     position: fixed;
     top: 60px;
@@ -91,7 +98,13 @@ body {
     background: #1a1a2e;
     padding: 20px 0;
     overflow-y: auto;
-    z-index: 100;
+    z-index: 4000;
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+}
+
+.sidebar.active {
+    transform: translateX(0);
 }
 
 .nav-item {
@@ -238,23 +251,23 @@ body {
     color: #ff6b35;
 }
 
-/* Video Modal - Mesmo estilo do Home */
+/* Video Modal - Scroll funcionando */
 .video-modal {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     background: #0f0f1e;
     z-index: 3000;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .modal-container {
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
+    min-height: 100vh;
     padding-bottom: 30px;
 }
 

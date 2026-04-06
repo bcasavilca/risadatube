@@ -219,6 +219,12 @@ function closeVideo() {
     document.getElementById('sidebar').classList.remove('active');
 }
 
+// Filtrar a partir do player
+function filterFromPlayer(category) {
+    closeVideo();
+    filterCategory(category);
+}
+
 // Toggle menu mobile
 function toggleMenu() {
     document.getElementById('sidebar').classList.toggle('active');
