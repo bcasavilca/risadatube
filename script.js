@@ -147,79 +147,69 @@ function searchVideos() {
     renderVideos(filtered);
 }
 
-// Abrir vídeo no modal
+// Abrir vídeo
 function openVideo(videoId) {
     const video = videos.find(v => v.id === videoId);
     if (!video) return;
 
     const modal = document.getElementById('videoModal');
-    const container = document.getElementById('videoContainer');
-    const info = document.getElementById('videoInfo');
+    
+    // Mostrar modal
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Travar scroll da página
 
-    // Pegar recomendações (vídeos da mesma categoria, excluindo o atual)
+    // Título
+    document.getElementById('modalVideoTitle').textContent = video.title;
+
+    // Vídeo
+    document.getElementById('videoFrame').innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+        </iframe>
+    `;
+
+    // Info (views, data, categoria)
+    document.getElementById('modalVideoMeta').innerHTML = `
+        <span><i class="fas fa-eye"></i> ${video.views}</span>
+        <span><i class="fas fa-calendar"></i> ${video.date}</span>
+        <span><i class="fas fa-tag"></i> ${video.category}</span>
+    `;
+
+    // Gerar recomendações (mesma categoria)
     const recommendations = videos
         .filter(v => v.category === video.category && v.id !== video.id)
         .slice(0, 4);
-
-    // Se não tiver enough da mesma categoria, pegar aleatórios
+    
+    // Se não tiver 4, pega outros aleatórios
     if (recommendations.length < 4) {
-        const otherVideos = videos.filter(v => v.id !== video.id && !recommendations.includes(v));
-        while (recommendations.length < 4 && otherVideos.length > 0) {
-            recommendations.push(otherVideos.shift());
+        const outros = videos.filter(v => v.id !== video.id && !recommendations.find(r => r.id === v.id));
+        while (recommendations.length < 4 && outros.length > 0) {
+            recommendations.push(outros.shift());
         }
     }
 
-    // Criar HTML das recomendações
-    const recsHTML = recommendations.map(rec => `
-        <div class="rec-card" onclick="openVideo('${rec.id}')">
-            <div class="rec-thumbnail">
+    // Renderizar recomendações
+    document.getElementById('modalRecGrid').innerHTML = recommendations.map(rec => `
+        <div class="modal-rec-item" onclick="openVideo('${rec.id}')">
+            <div class="modal-rec-thumb">
                 <img src="${rec.thumbnail}" alt="${rec.title}">
-                <span class="rec-duration">${rec.duration}</span>
+                <span class="modal-rec-time">${rec.duration}</span>
             </div>
-            <div class="rec-info">
-                <div class="rec-title">${rec.title}</div>
-                <div class="rec-views">${rec.views} views</div>
-            </div>
+            <div class="modal-rec-title">${rec.title}</div>
+            <div class="modal-rec-views">${rec.views} views</div>
         </div>
     `).join('');
-
-    container.innerHTML = `
-        <div class="video-layout-vertical">
-            <div class="main-video">
-                <iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1" 
-                        allowfullscreen>
-                </iframe>
-            </div>
-            <div class="recommendations-horizontal">
-                <h3><i class="fas fa-fire"></i> Recomendados para você</h3>
-                <div class="rec-grid">
-                    ${recsHTML}
-                </div>
-            </div>
-        </div>
-    `;
-
-    info.innerHTML = `
-        <div style="padding: 20px;">
-            <h2 style="margin-bottom: 10px;">${video.title}</h2>
-            <div class="video-meta" style="font-size: 1rem;">
-                <span><i class="fas fa-eye"></i> ${video.views} visualizações</span>
-                <span><i class="fas fa-calendar"></i> ${video.date}</span>
-                <span><i class="fas fa-tag"></i> ${video.category}</span>
-            </div>
-        </div>
-    `;
-
-    modal.classList.add('active');
 }
 
 // Fechar vídeo
 function closeVideo() {
     const modal = document.getElementById('videoModal');
-    const container = document.getElementById('videoContainer');
     
-    container.innerHTML = '';
-    modal.classList.remove('active');
+    document.getElementById('videoFrame').innerHTML = '';
+    modal.style.display = 'none';
+    document.body.style.overflow = ''; // Liberar scroll
 }
 
 // Toggle menu mobile
