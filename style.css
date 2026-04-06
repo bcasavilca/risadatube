@@ -248,12 +248,14 @@ body {
 }
 
 .modal-content {
-    width: 90%;
-    max-width: 1000px;
+    width: 95%;
+    max-width: 1400px;
     background: #1a1a2e;
     border-radius: 12px;
     overflow: hidden;
     position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .close-btn {
@@ -267,15 +269,118 @@ body {
     text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-.video-container {
-    aspect-ratio: 16/9;
-    background: #000;
+.video-layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
 }
 
-.video-container iframe {
+.main-video {
+    flex: 1;
+    min-width: 0;
+}
+
+.main-video iframe {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 16/9;
     border: none;
+    border-radius: 8px;
+}
+
+.recommendations {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.recommendations h3 {
+    color: #ff6b35;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rec-card {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.rec-card:hover {
+    background: #252550;
+    transform: translateX(5px);
+}
+
+.rec-thumbnail {
+    position: relative;
+    width: 160px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.rec-thumbnail img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.rec-duration {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.8);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.rec-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.rec-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.rec-views {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .video-layout {
+        flex-direction: column;
+    }
+    
+    .recommendations {
+        width: 100%;
+        border-top: 1px solid #3a3a6e;
+        padding-top: 20px;
+        margin-top: 10px;
+    }
+    
+    .rec-card {
+        flex-direction: row;
+    }
+    
+    .rec-thumbnail {
+        width: 140px;
+    }
 }
 
 /* Responsive */

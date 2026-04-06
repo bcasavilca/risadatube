@@ -156,10 +156,45 @@ function openVideo(videoId) {
     const container = document.getElementById('videoContainer');
     const info = document.getElementById('videoInfo');
 
+    // Pegar recomendações (vídeos da mesma categoria, excluindo o atual)
+    const recommendations = videos
+        .filter(v => v.category === video.category && v.id !== video.id)
+        .slice(0, 4);
+
+    // Se não tiver enough da mesma categoria, pegar aleatórios
+    if (recommendations.length < 4) {
+        const otherVideos = videos.filter(v => v.id !== video.id && !recommendations.includes(v));
+        while (recommendations.length < 4 && otherVideos.length > 0) {
+            recommendations.push(otherVideos.shift());
+        }
+    }
+
+    // Criar HTML das recomendações
+    const recsHTML = recommendations.map(rec => `
+        <div class="rec-card" onclick="openVideo('${rec.id}')">
+            <div class="rec-thumbnail">
+                <img src="${rec.thumbnail}" alt="${rec.title}">
+                <span class="rec-duration">${rec.duration}</span>
+            </div>
+            <div class="rec-info">
+                <div class="rec-title">${rec.title}</div>
+                <div class="rec-views">${rec.views} views</div>
+            </div>
+        </div>
+    `).join('');
+
     container.innerHTML = `
-        <iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1" 
-                allowfullscreen>
-        </iframe>
+        <div class="video-layout">
+            <div class="main-video">
+                <iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            <div class="recommendations">
+                <h3><i class="fas fa-fire"></i> Recomendados</h3>
+                ${recsHTML}
+            </div>
+        </div>
     `;
 
     info.innerHTML = `
