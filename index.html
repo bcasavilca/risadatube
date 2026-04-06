@@ -90,32 +90,39 @@
     <!-- Video Player Modal -->
     <div class="video-modal" id="videoModal">
         <div class="modal-container">
-            <!-- Header com Logo -->
-            <div class="modal-header-logo">
-                <div class="modal-logo">
+            <!-- Header igual ao Home -->
+            <header class="header modal-header">
+                <div class="logo" onclick="closeVideo()" style="cursor: pointer;">
                     <i class="fas fa-laugh-beam"></i>
                     <span>RisadaTube</span>
                 </div>
-                <button class="close-btn" onclick="closeVideo()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar vídeos...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </header>
             
-            <!-- Vídeo -->
-            <div class="modal-video-section">
-                <div class="video-wrapper" id="videoWrapper"></div>
-            </div>
-            
-            <!-- Título e Info -->
-            <div class="modal-info-section">
-                <h2 class="video-title-main" id="modalVideoTitle"></h2>
-                <div class="video-stats" id="modalVideoStats"></div>
-            </div>
-            
-            <!-- Recomendações -->
-            <div class="modal-recommendations">
-                <h3><i class="fas fa-fire"></i> Recomendados</h3>
-                <div class="rec-grid" id="modalRecGrid"></div>
+            <!-- Conteúdo do Player -->
+            <div class="player-content">
+                <!-- Vídeo -->
+                <div class="modal-video-section">
+                    <div class="video-wrapper" id="videoWrapper"></div>
+                </div>
+                
+                <!-- Título e Info -->
+                <div class="modal-info-section">
+                    <h2 class="video-title-main" id="modalVideoTitle"></h2>
+                    <div class="video-stats" id="modalVideoStats"></div>
+                </div>
+                
+                <!-- Recomendações -->
+                <div class="modal-recommendations">
+                    <h3><i class="fas fa-fire"></i> Recomendados</h3>
+                    <div class="rec-grid" id="modalRecGrid"></div>
+                </div>
             </div>
         </div>
     </div>
