@@ -225,6 +225,23 @@ function toggleMenu() {
     document.getElementById('sidebar').classList.toggle('active');
 }
 
+// Focus no campo de busca
+function focusSearch() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.focus();
+        searchInput.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Mostrar/ocultar categorias
+function showCategories() {
+    const subcategories = document.querySelectorAll('.nav-item.subcategory');
+    subcategories.forEach(cat => {
+        cat.style.display = cat.style.display === 'none' ? 'flex' : 'none';
+    });
+}
+
 // Fechar modal ao clicar fora
 document.getElementById('videoModal').addEventListener('click', function(e) {
     if (e.target === this) {

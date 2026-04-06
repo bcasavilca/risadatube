@@ -29,25 +29,43 @@
             <i class="fas fa-home"></i>
             <span>Início</span>
         </div>
-        <div class="nav-item" onclick="filterCategory('standup')">
+        <div class="nav-item" onclick="filterCategory('trending')">
+            <i class="fas fa-fire"></i>
+            <span>Em alta</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('maisvistos')">
+            <i class="fas fa-star"></i>
+            <span>Mais vistos</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('recente')">
+            <i class="fas fa-bolt"></i>
+            <span>Novidades</span>
+        </div>
+        <hr style="border: none; border-top: 1px solid #3a3a6e; margin: 15px 0;">
+        <div class="nav-item" onclick="showCategories()">
+            <i class="fas fa-th-large"></i>
+            <span>Categorias</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('standup')">
             <i class="fas fa-microphone"></i>
             <span>Stand-up</span>
         </div>
-        <div class="nav-item" onclick="filterCategory('vine')">
+        <div class="nav-item subcategory" onclick="filterCategory('vine')">
             <i class="fas fa-video"></i>
-            <span>Vines Curtos</span>
+            <span>Vines</span>
         </div>
-        <div class="nav-item" onclick="filterCategory('compilacao')">
+        <div class="nav-item subcategory" onclick="filterCategory('compilacao')">
             <i class="fas fa-film"></i>
             <span>Compilações</span>
         </div>
-        <div class="nav-item" onclick="filterCategory('comedia')">
-            <i class="fas fa-theater-masks"></i>
-            <span>Esquetes</span>
-        </div>
-        <div class="nav-item" onclick="filterCategory('fail')">
+        <div class="nav-item subcategory" onclick="filterCategory('fail')">
             <i class="fas fa-grin-squint-tears"></i>
             <span>Fail Moments</span>
+        </div>
+        <hr style="border: none; border-top: 1px solid #3a3a6e; margin: 15px 0;">
+        <div class="nav-item" onclick="focusSearch()">
+            <i class="fas fa-search"></i>
+            <span>Buscar</span>
         </div>
     </nav>
 

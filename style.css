@@ -383,6 +383,15 @@ body {
     }
 }
 
+.nav-item.subcategory {
+    padding-left: 45px;
+    font-size: 0.9rem;
+}
+
+.nav-item.subcategory i {
+    font-size: 1rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .menu-toggle {
