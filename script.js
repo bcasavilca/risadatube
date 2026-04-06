@@ -202,6 +202,11 @@ function openVideo(videoId) {
     `).join('');
 }
 
+// Toggle sidebar no player
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+}
+
 // Fechar vídeo
 function closeVideo() {
     const modal = document.getElementById('videoModal');
@@ -209,6 +214,9 @@ function closeVideo() {
     document.getElementById('videoWrapper').innerHTML = '';
     modal.style.display = 'none';
     document.body.style.overflow = '';
+    
+    // Fechar sidebar se estiver aberta
+    document.getElementById('sidebar').classList.remove('active');
 }
 
 // Toggle menu mobile
