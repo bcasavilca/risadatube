@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RisadaTube - Vídeos de Comédia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-laugh-beam"></i>
+            <span>RisadaTube</span>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar vídeos de comédia...">
+            <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-item active" onclick="filterCategory('all')">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('standup')">
+            <i class="fas fa-microphone"></i>
+            <span>Stand-up</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('vine')">
+            <i class="fas fa-video"></i>
+            <span>Vines Curtos</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('compilacao')">
+            <i class="fas fa-film"></i>
+            <span>Compilações</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('comedia')">
+            <i class="fas fa-theater-masks"></i>
+            <span>Esquetes</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('fail')">
+            <i class="fas fa-grin-squint-tears"></i>
+            <span>Fail Moments</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Filter Tags -->
+        <div class="filter-tags">
+            <button class="tag active" onclick="filterCategory('all')">Todos</button>
+            <button class="tag" onclick="filterCategory('standup')">Stand-up</button>
+            <button class="tag" onclick="filterCategory('vine')">Vines</button>
+            <button class="tag" onclick="filterCategory('compilacao')">Compilações</button>
+            <button class="tag" onclick="filterCategory('trending')">Trending</button>
+            <button class="tag" onclick="filterCategory('recente')">Recentes</button>
+        </div>
+
+        <!-- Video Grid -->
+        <div class="video-grid" id="videoGrid">
+            <!-- Videos serão inseridos via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Video Player Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeVideo()">&times;</span>
+            <div class="video-container" id="videoContainer"></div>
+            <div class="video-info" id="videoInfo"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
