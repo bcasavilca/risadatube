@@ -156,13 +156,10 @@ function openVideo(videoId) {
     
     // Mostrar modal
     modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Travar scroll da página
-
-    // Título
-    document.getElementById('modalVideoTitle').textContent = video.title;
+    document.body.style.overflow = 'hidden';
 
     // Vídeo
-    document.getElementById('videoFrame').innerHTML = `
+    document.getElementById('videoWrapper').innerHTML = `
         <iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -170,22 +167,24 @@ function openVideo(videoId) {
         </iframe>
     `;
 
-    // Info (views, data, categoria)
-    document.getElementById('modalVideoMeta').innerHTML = `
-        <span><i class="fas fa-eye"></i> ${video.views}</span>
+    // Título
+    document.getElementById('modalVideoTitle').textContent = video.title;
+
+    // Stats
+    document.getElementById('modalVideoStats').innerHTML = `
+        <span><i class="fas fa-eye"></i> ${video.views} visualizações</span>
         <span><i class="fas fa-calendar"></i> ${video.date}</span>
-        <span><i class="fas fa-tag"></i> ${video.category}</span>
+        <span class="category-badge"><i class="fas fa-tag"></i> ${video.category}</span>
     `;
 
-    // Gerar recomendações (mesma categoria)
+    // Gerar recomendações
     const recommendations = videos
         .filter(v => v.category === video.category && v.id !== video.id)
-        .slice(0, 4);
+        .slice(0, 6);
     
-    // Se não tiver 4, pega outros aleatórios
-    if (recommendations.length < 4) {
+    if (recommendations.length < 6) {
         const outros = videos.filter(v => v.id !== video.id && !recommendations.find(r => r.id === v.id));
-        while (recommendations.length < 4 && outros.length > 0) {
+        while (recommendations.length < 6 && outros.length > 0) {
             recommendations.push(outros.shift());
         }
     }
@@ -207,9 +206,9 @@ function openVideo(videoId) {
 function closeVideo() {
     const modal = document.getElementById('videoModal');
     
-    document.getElementById('videoFrame').innerHTML = '';
+    document.getElementById('videoWrapper').innerHTML = '';
     modal.style.display = 'none';
-    document.body.style.overflow = ''; // Liberar scroll
+    document.body.style.overflow = '';
 }
 
 // Toggle menu mobile
