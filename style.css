@@ -81,14 +81,7 @@ body {
     color: #fff;
 }
 
-/* Tags no player */
-.player-tags {
-    max-width: 1200px;
-    margin: 15px auto;
-    padding: 0 20px;
-}
-
-/* Sidebar deve ficar acima do modal */
+/* Sidebar */
 .sidebar {
     position: fixed;
     top: 60px;
@@ -141,7 +134,7 @@ body {
     font-size: 1rem;
 }
 
-/* Main Content */
+/* Main Content - Home */
 .main-content {
     margin-left: 240px;
     margin-top: 60px;
@@ -251,7 +244,7 @@ body {
     color: #ff6b35;
 }
 
-/* Video Modal - Scroll funcionando */
+/* Video Modal */
 .video-modal {
     display: none;
     position: fixed;
@@ -277,11 +270,20 @@ body {
     top: 0;
 }
 
+/* Conteúdo do Player - colado no header */
 .player-content {
     margin-top: 60px;
+    min-height: calc(100vh - 60px);
 }
 
-/* Vídeo Principal - Maior */
+/* Tags no player - coladas no header */
+.player-tags {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px 5px 20px;
+}
+
+/* Vídeo Principal */
 .modal-video-section {
     background: #000;
     width: 100%;
@@ -351,7 +353,7 @@ body {
     font-size: 0.8rem;
 }
 
-/* Recomendações - Menores e sem corte */
+/* Recomendações - Menores */
 .modal-recommendations {
     background: #0f0f1e;
     padding: 15px 20px;
@@ -437,7 +439,6 @@ body {
     
     .sidebar {
         transform: translateX(-100%);
-        transition: transform 0.3s;
     }
     
     .sidebar.active {
@@ -458,7 +459,7 @@ body {
     }
     
     .rec-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
     
     .video-stats {
