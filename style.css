@@ -204,10 +204,12 @@ body {
     height: 100%;
     object-fit: cover;
     filter: blur(8px);
+    transition: filter 0.3s ease;
 }
 
 .video-card:hover .video-thumbnail img {
     filter: blur(0);
+    transition: filter 0.3s ease;
 }
 
 .video-duration {
@@ -406,10 +408,12 @@ body {
     height: 100%;
     object-fit: cover;
     filter: blur(6px);
+    transition: filter 0.3s ease;
 }
 
 .modal-rec-item:hover .modal-rec-thumb img {
     filter: blur(0);
+    transition: filter 0.3s ease;
 }
 
 .modal-rec-time {
