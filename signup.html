@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta - RisadaTube</title>
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-logo">
+                <i class="fas fa-laugh-beam"></i>
+                <h1>RisadaTube</h1>
+            </div>
+            
+            <h2>Criar Conta</h2>
+            <p class="auth-subtitle">Junte-se à diversão! É grátis.</p>
+            
+            <form id="signupForm" onsubmit="handleSignUp(event)">
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="firstName">Nome</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="firstName" name="firstName" required placeholder="João">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group half">
+                        <label for="lastName">Sobrenome</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="lastName" name="lastName" required placeholder="Silva">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Nome de utilizador</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-at"></i>
+                        <input type="text" id="username" name="username" required placeholder="@joaosilva">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" required placeholder="••••••••" minlength="8">
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('password')"></i>
+                    </div>
+                    <p class="password-hint">Mínimo 8 caracteres, inclua números e símbolos</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar Senha</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="••••••••">
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('confirmPassword')"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label terms">
+                        <input type="checkbox" id="terms" required>
+                        <span>Aceito os <a href="#">Termos de Serviço</a> e a <a href="#">Política de Privacidade</a></span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-auth">
+                    <i class="fas fa-user-plus"></i>
+                    Criar Conta
+                </button>
+            </form>
+            
+            <div class="auth-divider">
+                <span>ou</span>
+            </div>
+            
+            <div class="social-login">
+                <button class="btn-social google" onclick="socialLogin('google')">
+                    <i class="fab fa-google"></i>
+                    Continuar com Google
+                </button>
+                <button class="btn-social facebook" onclick="socialLogin('facebook')">
+                    <i class="fab fa-facebook-f"></i>
+                    Continuar com Facebook
+                </button>
+            </div>
+            
+            <p class="auth-footer">
+                Já tem uma conta? 
+                <a href="signin.html" class="auth-link">Entrar</a>
+            </p>
+        </div>
+        
+        <div class="auth-image">
+            <div class="auth-quote">
+                <i class="fas fa-quote-left"></i>
+                <p>"Junte-se a milhões de pessoas que riem todos os dias!"</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="auth.js"></script>
+</body>
+</html>
