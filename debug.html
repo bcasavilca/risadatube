@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - RisadaTube</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0f0f1e;
+            color: #fff;
+            padding: 20px;
+        }
+        h1 { color: #ff6b35; }
+        .section {
+            background: #1a1a2e;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        pre {
+            background: #252550;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #ff6b35;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .clear-btn { background: #ff4444; }
+        .back-btn { background: #444; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug - RisadaTube</h1>
+    
+    <div class="section">
+        <h2>Uploads Públicos</h2>
+        <pre id="publicVideos">Carregando...</pre>
+        <div>
+            <button onclick="clearPublic()">Limpar Públicos</button>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Meus Uploads</h2>
+        <pre id="myUploads">Carregando...</pre>
+        <div>
+            <button onclick="clearMy()">Limpar Meus Uploads</button>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Todos os Dados do LocalStorage</h2>
+        <pre id="allData">Carregando...</pre>
+    </div>
+    
+    <div>
+        <button class="back-btn" onclick="location.href='index.html'">← Voltar para Início</button>
+        <button class="back-btn" onclick="location.href='upload.html'">Ir para Upload</button>
+        <button onclick="refresh()">🔄 Atualizar</button>
+    </div>
+
+    <script>
+        function refresh() {
+            const public = localStorage.getItem('risadatube_public_videos');
+            const my = localStorage.getItem('risadatube_uploads');
+            const session = localStorage.getItem('risadatube_session');
+            
+            document.getElementById('publicVideos').textContent = public 
+                ? JSON.stringify(JSON.parse(public), null, 2) 
+                : '(vazio)';
+            
+            document.getElementById('myUploads').textContent = my 
+                ? JSON.stringify(JSON.parse(my), null, 2) 
+                : '(vazio)';
+            
+            let all = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('risadatube_')) {
+                    try {
+                        all[key] = JSON.parse(localStorage.getItem(key));
+                    } catch (e) {
+                        all[key] = localStorage.getItem(key);
+                    }
+                }
+            }
+            document.getElementById('allData').textContent = JSON.stringify(all, null, 2);
+        }
+        
+        function clearPublic() {
+            if (confirm('Limpar todos os vídeos públicos?')) {
+                localStorage.removeItem('risadatube_public_videos');
+                refresh();
+            }
+        }
+        
+        function clearMy() {
+            if (confirm('Limpar todos os meus uploads?')) {
+                localStorage.removeItem('risadatube_uploads');
+                refresh();
+            }
+        }
+        
+        // Carregar ao abrir
+        refresh();
+    </script>
+</body>
+</html>

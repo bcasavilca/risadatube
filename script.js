@@ -84,31 +84,52 @@ const videos = [
 
 // Carregar vídeos do usuário (uploads)
 function loadUserVideos() {
-    const uploads = JSON.parse(localStorage.getItem('risadatube_public_videos') || '[]');
-    return uploads.map(upload => ({
-        id: upload.id,
-        title: upload.title,
-        thumbnail: upload.thumbnail || 'https://via.placeholder.com/640x360/1a1a2e/ff6b35?text=Video',
-        duration: upload.duration || (upload.type === 'photo' ? 'Foto' : '0:00'),
-        views: upload.views || '0',
-        date: upload.date || 'Agora',
-        category: upload.category || 'outro',
-        youtubeId: null,
-        isUserUpload: true,
-        userId: upload.userId,
-        userName: upload.userName,
-        description: upload.description
-    }));
+    try {
+        const uploads = JSON.parse(localStorage.getItem('risadatube_public_videos') || '[]');
+        console.log('Raw uploads from localStorage:', uploads);
+        
+        if (!Array.isArray(uploads)) {
+            console.error('Uploads is not an array');
+            return [];
+        }
+        
+        return uploads.map(upload => ({
+            id: upload.id,
+            title: upload.title,
+            thumbnail: upload.thumbnail || 'https://via.placeholder.com/640x360/1a1a2e/ff6b35?text=Video',
+            duration: upload.duration || (upload.type === 'photo' ? 'Foto' : '0:00'),
+            views: upload.views || '0',
+            date: upload.date || 'Agora',
+            category: upload.category || 'outro',
+            youtubeId: null,
+            isUserUpload: true,
+            userId: upload.userId,
+            userName: upload.userName,
+            description: upload.description
+        }));
+    } catch (e) {
+        console.error('Error loading user videos:', e);
+        return [];
+    }
 }
 
 // Renderizar vídeos (incluindo uploads do usuário)
 function renderVideos(videoList) {
     const grid = document.getElementById('videoGrid');
+    if (!grid) return;
     
     // Se não for uma lista específica, combinar vídeos padrão + uploads
     if (!videoList) {
         const userVideos = loadUserVideos();
-        videoList = [...videos, ...userVideos];
+        console.log('User videos loaded:', userVideos.length, userVideos);
+        videoList = [...userVideos, ...videos]; // Uploads primeiro!
+    }
+    
+    console.log('Rendering videos:', videoList.length);
+    
+    if (videoList.length === 0) {
+        grid.innerHTML = '<div style="text-align:center;padding:40px;color:#888;grid-column:1/-1;">Nenhum vídeo encontrado</div>';
+        return;
     }
     
     grid.innerHTML = videoList.map(video => `
@@ -280,6 +301,17 @@ function showCategories() {
     });
 }
 
+// Diagnostic tool - check what's in localStorage
+function checkUploads() {
+    const uploads = localStorage.getItem('risadatube_public_videos');
+    const myUploads = localStorage.getItem('risadatube_uploads');
+    console.log('=== DIAGNÓSTICO ===');
+    console.log('Public videos:', uploads ? JSON.parse(uploads).length : 0, uploads);
+    console.log('My uploads:', myUploads ? JSON.parse(myUploads).length : 0, myUploads);
+    console.log('==================');
+    return { publicVideos: uploads, myUploads: myUploads };
+}
+
 // Fechar modal ao clicar fora (só depois que DOM carregar)
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('videoModal');
@@ -310,6 +342,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Diagnostic - check uploads
+    checkUploads();
     
     // Renderizar vídeos iniciais
     renderVideos(videos);
