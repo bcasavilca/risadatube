@@ -136,17 +136,10 @@ body {
 
 /* Main Content - Home */
 .main-content {
-    margin-left: 0;
+    margin-left: 240px;
     margin-top: 60px;
     padding: 20px;
     min-height: calc(100vh - 60px);
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 20px;
-}
-
-.main-content > * {
-    min-width: 0;
 }
 
 /* Filter Tags */
