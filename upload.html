@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload - RisadaTube</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="upload.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo" onclick="window.location.href='index.html'">
+            <i class="fas fa-laugh-beam"></i>
+            <span>RisadaTube</span>
+        </div>
+        <div class="header-actions">
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <div class="user-avatar" onclick="toggleUserDropdown()">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="user-name">Utilizador</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="upload.html"><i class="fas fa-upload"></i> Upload</a>
+                    <a href="#"><i class="fas fa-user"></i> Meu Perfil</a>
+                    <a href="#"><i class="fas fa-cog"></i> Configurações</a>
+                    <hr>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                </div>
+            </div>
+            <div class="auth-buttons" id="authButtons">
+                <button class="btn-login" onclick="window.location.href='signin.html'">Entrar</button>
+                <button class="btn-register" onclick="window.location.href='signup.html'">Criar conta</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="upload-container">
+        <div class="upload-header">
+            <h1><i class="fas fa-cloud-upload-alt"></i> Upload de Conteúdo</h1>
+            <p>Partilhe os seus vídeos e fotos engraçadas com a comunidade!</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="upload-tabs">
+            <button class="tab-btn active" onclick="switchTab('video')" id="tab-video">
+                <i class="fas fa-video"></i> Vídeo
+            </button>
+            <button class="tab-btn" onclick="switchTab('photo')" id="tab-photo">
+                <i class="fas fa-image"></i> Foto
+            </button>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-zone" id="dropZone">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>Arraste ficheiros aqui</h3>
+                <p>ou</p>
+                <button class="btn-select-file" onclick="document.getElementById('fileInput').click()">
+                    Selecionar ficheiro
+                </button>
+                <input type="file" id="fileInput" accept="video/*,image/*" hidden onchange="handleFileSelect(event)">
+            </div>
+
+            <!-- Upload Progress -->
+            <div class="upload-progress" id="uploadProgress" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">0%</span>
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-area" id="previewArea" style="display: none;">
+                <div class="preview-container">
+                    <video id="videoPreview" controls style="display: none;"></video>
+                    <img id="imagePreview" style="display: none;">
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="uploadForm" onsubmit="handleUpload(event)" style="display: none;">
+                <div class="form-group">
+                    <label for="title">Título *</label>
+                    <input type="text" id="title" required maxlength="100" 
+                           placeholder="Dê um título engraçado...">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <textarea id="description" rows="3" maxlength="500"
+                              placeholder="Conte a história por trás deste momento..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Categoria *</label>
+                    <select id="category" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="compilacao">Compilação</option>
+                        <option value="standup">Stand-up</option>
+                        <option value="vine">Vine</option>
+                        <option value="fail">Fail</option>
+                        <option value="meme">Meme</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">Tags (separadas por vírgula)</label>
+                    <input type="text" id="tags" placeholder="engraçado, viral, 2024...">
+                </div>
+
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="isPublic" checked>
+                        <span>Tornar público</span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="resetUpload()">Cancelar</button>
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <i class="fas fa-upload"></i> Publicar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- My Uploads -->
+        <div class="my-uploads">
+            <h2><i class="fas fa-folder-open"></i> Os Meus Uploads</h2>
+            <div class="uploads-grid" id="uploadsGrid">
+                <!-- Uploads serão carregados via JavaScript -->
+                <div class="no-uploads">
+                    <i class="fas fa-inbox"></i>
+                    <p>Ainda não fez nenhum upload</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="upload.js"></script>
+</body>
+</html>
