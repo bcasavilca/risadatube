@@ -158,7 +158,8 @@ function handleUpload(event) {
             progress = 100;
             clearInterval(interval);
             
-            setTimeout(() => {
+            // Generate thumbnail first (async)
+            generateThumbnail(function(thumbnailData) {
                 finishUpload({
                     id: Date.now().toString(),
                     title,
@@ -174,9 +175,9 @@ function handleUpload(event) {
                     createdAt: new Date().toISOString(),
                     views: '0',
                     likes: 0,
-                    thumbnail: generateThumbnail()
+                    thumbnail: thumbnailData
                 });
-            }, 500);
+            });
         }
         
         progressFill.style.width = `${progress}%`;
@@ -184,13 +185,18 @@ function handleUpload(event) {
     }, 200);
 }
 
-// Generate thumbnail (simulated)
-function generateThumbnail() {
+// Generate thumbnail - converte para base64 para persistência
+function generateThumbnail(callback) {
     if (currentType === 'photo') {
-        return URL.createObjectURL(currentFile);
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            callback(e.target.result);
+        };
+        reader.readAsDataURL(currentFile);
+    } else {
+        // For video, use a default thumbnail
+        callback('https://via.placeholder.com/640x360/1a1a2e/ff6b35?text=Video');
     }
-    // For video, return a placeholder
-    return 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg';
 }
 
 // Finish upload
