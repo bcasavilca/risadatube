@@ -177,7 +177,12 @@ function openVideo(videoId) {
         <span class="category-badge"><i class="fas fa-tag"></i> ${video.category}</span>
     `;
 
-    // Gerar recomendações
+    // Guardar ID do vídeo atual
+    currentVideoId = videoId;
+
+    // Renderizar comentários
+    renderComments(videoId);
+
     const recommendations = videos
         .filter(v => v.category === video.category && v.id !== video.id)
         .slice(0, 6);
@@ -268,6 +273,121 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Comentário ao pressionar Enter
+    const commentInput = document.getElementById('commentInput');
+    if (commentInput) {
+        commentInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitComment();
+            }
+        });
+    }
+    
     // Renderizar vídeos iniciais
     renderVideos(videos);
 });
+
+// ==================== SISTEMA DE COMENTÁRIOS ====================
+
+const commentsDB = JSON.parse(localStorage.getItem('risadatube_comments') || '{}');
+
+function submitComment() {
+    const input = document.getElementById('commentInput');
+    const text = input.value.trim();
+    if (!text) return;
+    
+    const videoId = currentVideoId;
+    if (!videoId) return;
+    
+    const comment = {
+        id: Date.now(),
+        text: text,
+        author: 'Você',
+        time: new Date().toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }),
+        likes: 0,
+        liked: false
+    };
+    
+    if (!commentsDB[videoId]) {
+        commentsDB[videoId] = [];
+    }
+    commentsDB[videoId].unshift(comment);
+    
+    localStorage.setItem('risadatube_comments', JSON.stringify(commentsDB));
+    
+    input.value = '';
+    clearCommentInput();
+    renderComments(videoId);
+}
+
+function clearCommentInput() {
+    const input = document.getElementById('commentInput');
+    input.value = '';
+}
+
+function renderComments(videoId) {
+    const commentsList = document.getElementById('commentsList');
+    const commentCount = document.getElementById('commentCount');
+    const comments = commentsDB[videoId] || [];
+    
+    commentCount.textContent = comments.length;
+    
+    if (comments.length === 0) {
+        commentsList.innerHTML = `
+            <div class="no-comments">
+                <i class="far fa-comment-dots"></i>
+                <p>Seja o primeiro a comentar!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    commentsList.innerHTML = comments.map(c => `
+        <div class="comment-item" data-id="${c.id}">
+            <div class="comment-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="comment-content">
+                <div class="comment-header">
+                    <span class="comment-author">${c.author}</span>
+                    <span class="comment-time">${c.time}</span>
+                </div>
+                <div class="comment-text">${escapeHtml(c.text)}</div>
+                <div class="comment-actions-bar">
+                    <div class="comment-action ${c.liked ? 'liked' : ''}" onclick="toggleLikeComment(${c.id}, '${videoId}')">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span>${c.likes || 0}</span>
+                    </div>
+                    <div class="comment-action" onclick="replyComment(${c.id})">
+                        <i class="fas fa-reply"></i>
+                        <span>Responder</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function toggleLikeComment(commentId, videoId) {
+    const comments = commentsDB[videoId] || [];
+    const comment = comments.find(c => c.id === commentId);
+    if (!comment) return;
+    
+    comment.liked = !comment.liked;
+    comment.likes = (comment.likes || 0) + (comment.liked ? 1 : -1);
+    
+    localStorage.setItem('risadatube_comments', JSON.stringify(commentsDB));
+    renderComments(videoId);
+}
+
+function replyComment(commentId) {
+    const input = document.getElementById('commentInput');
+    input.focus();
+    input.placeholder = 'Responder ao comentário...';
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}

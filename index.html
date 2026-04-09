@@ -18,7 +18,7 @@
             <input type="text" id="searchInput" placeholder="Buscar vídeos de comédia...">
             <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
         </div>
-        <div class="menu-toggle" onclick="toggleMenu()">
+        <div class="menu-toggle mobile-only" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
         </div>
     </header>
@@ -125,6 +125,30 @@
                 <div class="modal-info-section">
                     <h2 class="video-title-main" id="modalVideoTitle"></h2>
                     <div class="video-stats" id="modalVideoStats"></div>
+                </div>
+                
+                <!-- Seção de Comentários -->
+                <div class="comments-section">
+                    <h3><i class="fas fa-comments"></i> Comentários <span class="comment-count" id="commentCount">0</span></h3>
+                    
+                    <!-- Input de comentário -->
+                    <div class="comment-input-area">
+                        <div class="comment-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="comment-input-wrapper">
+                            <input type="text" id="commentInput" placeholder="Adicionar um comentário..." maxlength="500">
+                            <div class="comment-actions">
+                                <button class="btn-cancel" onclick="clearCommentInput()">Cancelar</button>
+                                <button class="btn-submit" onclick="submitComment()">Comentar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lista de comentários -->
+                    <div class="comments-list" id="commentsList">
+                        <!-- Comentários serão inseridos via JavaScript -->
+                    </div>
                 </div>
                 
                 <!-- Recomendações -->
