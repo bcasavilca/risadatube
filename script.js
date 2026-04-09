@@ -82,20 +82,48 @@ const videos = [
     }
 ];
 
-// Renderizar vídeos
+// Carregar vídeos do usuário (uploads)
+function loadUserVideos() {
+    const uploads = JSON.parse(localStorage.getItem('risadatube_public_videos') || '[]');
+    return uploads.map(upload => ({
+        id: upload.id,
+        title: upload.title,
+        thumbnail: upload.thumbnail || 'https://via.placeholder.com/640x360/1a1a2e/ff6b35?text=Video',
+        duration: upload.duration || (upload.type === 'photo' ? 'Foto' : '0:00'),
+        views: upload.views || '0',
+        date: upload.date || 'Agora',
+        category: upload.category || 'outro',
+        youtubeId: null,
+        isUserUpload: true,
+        userId: upload.userId,
+        userName: upload.userName,
+        description: upload.description
+    }));
+}
+
+// Renderizar vídeos (incluindo uploads do usuário)
 function renderVideos(videoList) {
     const grid = document.getElementById('videoGrid');
+    
+    // Se não for uma lista específica, combinar vídeos padrão + uploads
+    if (!videoList) {
+        const userVideos = loadUserVideos();
+        videoList = [...videos, ...userVideos];
+    }
+    
     grid.innerHTML = videoList.map(video => `
         <div class="video-card" onclick="openVideo('${video.id}')">
             <div class="video-thumbnail">
-                <img src="${video.thumbnail}" alt="${video.title}">
+                <img src="${video.thumbnail}" alt="${video.title}" onerror="this.src='https://via.placeholder.com/640x360/1a1a2e/ff6b35?text=Video'">
                 <span class="video-duration">${video.duration}</span>
+                ${video.isUserUpload ? '<span class="user-upload-badge"><i class="fas fa-user"></i></span>' : ''}
             </div>
             <div class="video-info">
                 <div class="video-title">${video.title}</div>
                 <div class="video-meta">
                     <span><i class="fas fa-eye"></i> ${video.views}</span>
                     <span><i class="fas fa-clock"></i> ${video.date}</span>
+                    ${video.userName ? `<span><i class="fas fa-user"></i> ${video.userName}</span>` : ''}
                 </div>
             </div>
         </div>

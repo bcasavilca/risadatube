@@ -338,6 +338,17 @@ body {
     font-weight: bold;
 }
 
+.user-upload-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #ff6b35;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #fff;
+}
+
 .video-info {
     padding: 15px;
 }
