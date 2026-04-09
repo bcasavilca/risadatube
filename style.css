@@ -111,11 +111,26 @@ body {
     position: relative;
 }
 
+.user-name-display {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
 .user-avatar-header {
-    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.5rem;
     color: #ff6b35;
     cursor: pointer;
     transition: color 0.3s;
+}
+
+.user-avatar-header .fa-chevron-down {
+    font-size: 0.7rem;
+    color: #888;
 }
 
 .user-avatar-header:hover {

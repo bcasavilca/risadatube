@@ -191,11 +191,16 @@ function updateAuthUI() {
     // Página index.html - header
     const userMenuHeader = document.getElementById('userMenuHeader');
     const authButtonsHeader = document.getElementById('authButtonsHeader');
+    const userNameDisplay = document.getElementById('userNameDisplay');
     
     if (userMenuHeader && authButtonsHeader) {
         if (user) {
-            userMenuHeader.style.display = 'block';
+            userMenuHeader.style.display = 'flex';
             authButtonsHeader.style.display = 'none';
+            // Mostrar nome do utilizador
+            if (userNameDisplay && user.firstName) {
+                userNameDisplay.textContent = user.firstName;
+            }
         } else {
             userMenuHeader.style.display = 'none';
             authButtonsHeader.style.display = 'flex';
