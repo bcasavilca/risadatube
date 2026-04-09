@@ -779,6 +779,50 @@ body {
         display: none;
     }
     
+    .header {
+        padding: 0 10px;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+        gap: 5px;
+    }
+    
+    .logo i {
+        font-size: 1.5rem;
+    }
+    
+    .logo span {
+        display: none;
+    }
+    
+    .header-auth {
+        gap: 8px;
+    }
+    
+    .btn-upload-header {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .btn-upload-header .btn-text {
+        display: none;
+    }
+    
+    .btn-login-header,
+    .btn-register-header {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+    
+    .auth-buttons-header {
+        gap: 5px;
+    }
+    
+    .user-avatar-header {
+        font-size: 1.5rem;
+    }
+    
     .video-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 10px;
