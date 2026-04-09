@@ -170,10 +170,12 @@ function filterCategory(category) {
 
     // Filtrar vídeos
     if (category === 'all') {
-        renderVideos(videos);
+        renderVideos(); // Chama sem parâmetro para incluir uploads
     } else if (category === 'trending' || category === 'recente') {
         // Ordenar por views para trending, por data para recente
-        const sorted = [...videos].sort((a, b) => {
+        const userVideos = loadUserVideos();
+        const allVideos = [...userVideos, ...videos];
+        const sorted = [...allVideos].sort((a, b) => {
             if (category === 'trending') {
                 return parseInt(b.views) - parseInt(a.views);
             }
@@ -181,7 +183,9 @@ function filterCategory(category) {
         });
         renderVideos(sorted);
     } else {
-        const filtered = videos.filter(v => v.category === category);
+        const userVideos = loadUserVideos();
+        const allVideos = [...userVideos, ...videos];
+        const filtered = allVideos.filter(v => v.category === category);
         renderVideos(filtered);
     }
 }
@@ -189,7 +193,9 @@ function filterCategory(category) {
 // Buscar vídeos
 function searchVideos() {
     const query = document.getElementById('searchInput').value.toLowerCase();
-    const filtered = videos.filter(v => 
+    const userVideos = loadUserVideos();
+    const allVideos = [...userVideos, ...videos];
+    const filtered = allVideos.filter(v => 
         v.title.toLowerCase().includes(query) ||
         v.category.toLowerCase().includes(query)
     );
@@ -198,7 +204,9 @@ function searchVideos() {
 
 // Abrir vídeo
 function openVideo(videoId) {
-    const video = videos.find(v => v.id === videoId);
+    const userVideos = loadUserVideos();
+    const allVideos = [...userVideos, ...videos];
+    const video = allVideos.find(v => v.id === videoId);
     if (!video) return;
 
     const modal = document.getElementById('videoModal');
