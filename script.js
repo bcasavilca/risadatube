@@ -207,7 +207,10 @@ function openVideo(videoId) {
     const userVideos = loadUserVideos();
     const allVideos = [...userVideos, ...videos];
     const video = allVideos.find(v => v.id === videoId);
-    if (!video) return;
+    if (!video) {
+        console.error('Vídeo não encontrado:', videoId);
+        return;
+    }
 
     const modal = document.getElementById('videoModal');
     
@@ -215,14 +218,25 @@ function openVideo(videoId) {
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 
-    // Vídeo
-    document.getElementById('videoWrapper').innerHTML = `
-        <iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-        </iframe>
-    `;
+    // Vídeo - se for upload do usuário sem youtubeId, mostra placeholder
+    if (video.youtubeId) {
+        document.getElementById('videoWrapper').innerHTML = `
+            <iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+            </iframe>
+        `;
+    } else if (video.isUserUpload) {
+        // Para uploads do usuário sem youtubeId, mostra a thumbnail
+        document.getElementById('videoWrapper').innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:center;height:100%;background:#1a1a2e;flex-direction:column;gap:20px;">
+                <i class="fas fa-film" style="font-size:4rem;color:#ff6b35;"></i>
+                <p style="color:#888;">Vídeo do utilizador</p>
+                <p style="color:#666;font-size:0.9rem;">${video.title}</p>
+            </div>
+        `;
+    }
 
     // Título
     document.getElementById('modalVideoTitle').textContent = video.title;
@@ -354,8 +368,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Diagnostic - check uploads
     checkUploads();
     
-    // Renderizar vídeos iniciais
-    renderVideos(videos);
+    // Renderizar vídeos iniciais (incluindo uploads)
+    renderVideos();
     
     // Atualizar header baseado em auth
     updateHeaderAuth();
