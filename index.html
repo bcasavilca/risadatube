@@ -21,6 +21,29 @@
         <div class="menu-toggle mobile-only" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
         </div>
+        
+        <!-- Auth Buttons -->
+        <div class="header-auth" id="headerAuth">
+            <a href="upload.html" class="btn-upload-header">
+                <i class="fas fa-upload"></i>
+                <span class="btn-text">Upload</span>
+            </a>
+            <div class="user-menu-header" id="userMenuHeader" style="display: none;">
+                <div class="user-avatar-header" onclick="toggleHeaderDropdown()">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="header-dropdown" id="headerDropdown">
+                    <a href="upload.html"><i class="fas fa-upload"></i> Upload</a>
+                    <a href="#"><i class="fas fa-user"></i> Perfil</a>
+                    <hr>
+                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                </div>
+            </div>
+            <div class="auth-buttons-header" id="authButtonsHeader">
+                <a href="signin.html" class="btn-login-header">Entrar</a>
+                <a href="signup.html" class="btn-register-header">Criar conta</a>
+            </div>
+        </div>
     </header>
 
     <!-- Sidebar -->

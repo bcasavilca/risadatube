@@ -285,6 +285,47 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Renderizar vídeos iniciais
     renderVideos(videos);
+    
+    // Atualizar header baseado em auth
+    updateHeaderAuth();
+});
+
+// Header Auth functions
+function updateHeaderAuth() {
+    const user = checkAuth ? checkAuth() : null;
+    const userMenuHeader = document.getElementById('userMenuHeader');
+    const authButtonsHeader = document.getElementById('authButtonsHeader');
+    
+    if (user) {
+        if (userMenuHeader) userMenuHeader.style.display = 'block';
+        if (authButtonsHeader) authButtonsHeader.style.display = 'none';
+        
+        // Atualizar nome se existir elemento
+        const userNameEl = document.querySelector('.user-name-display');
+        if (userNameEl && user.firstName) {
+            userNameEl.textContent = user.firstName;
+        }
+    } else {
+        if (userMenuHeader) userMenuHeader.style.display = 'none';
+        if (authButtonsHeader) authButtonsHeader.style.display = 'flex';
+    }
+}
+
+function toggleHeaderDropdown() {
+    const dropdown = document.getElementById('headerDropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('active');
+    }
+}
+
+// Fechar dropdown ao clicar fora
+document.addEventListener('click', function(e) {
+    const userMenuHeader = document.getElementById('userMenuHeader');
+    const dropdown = document.getElementById('headerDropdown');
+    
+    if (userMenuHeader && dropdown && !userMenuHeader.contains(e.target)) {
+        dropdown.classList.remove('active');
+    }
 });
 
 // ==================== SISTEMA DE COMENTÁRIOS ====================
