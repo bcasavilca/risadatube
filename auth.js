@@ -184,23 +184,89 @@ function logout() {
     window.location.href = 'signin.html';
 }
 
-// Update UI based on auth state
+// Update UI based on auth state - UNIVERSAL VERSION
 function updateAuthUI() {
     const user = checkAuth();
-    const loginBtn = document.getElementById('loginBtn');
-    const userMenu = document.getElementById('userMenu');
     
-    if (user && userMenu) {
-        userMenu.style.display = 'flex';
-        if (loginBtn) loginBtn.style.display = 'none';
-        
-        const userName = userMenu.querySelector('.user-name');
-        if (userName) userName.textContent = user.firstName;
-    } else if (loginBtn) {
-        loginBtn.style.display = 'flex';
-        if (userMenu) userMenu.style.display = 'none';
+    // Página index.html - header
+    const userMenuHeader = document.getElementById('userMenuHeader');
+    const authButtonsHeader = document.getElementById('authButtonsHeader');
+    
+    if (userMenuHeader && authButtonsHeader) {
+        if (user) {
+            userMenuHeader.style.display = 'block';
+            authButtonsHeader.style.display = 'none';
+        } else {
+            userMenuHeader.style.display = 'none';
+            authButtonsHeader.style.display = 'flex';
+        }
+    }
+    
+    // Página upload.html - header actions
+    const userMenu = document.getElementById('userMenu');
+    const authButtons = document.getElementById('authButtons');
+    
+    if (userMenu && authButtons) {
+        if (user) {
+            userMenu.style.display = 'flex';
+            authButtons.style.display = 'none';
+            const userNameEl = userMenu.querySelector('.user-name');
+            if (userNameEl && user.firstName) {
+                userNameEl.textContent = user.firstName;
+            }
+        } else {
+            userMenu.style.display = 'none';
+            authButtons.style.display = 'flex';
+        }
+    }
+    
+    // Página index.html - old IDs (fallback)
+    const loginBtn = document.getElementById('loginBtn');
+    const userMenuOld = document.getElementById('userMenu');
+    
+    if (loginBtn && userMenuOld) {
+        if (user) {
+            userMenuOld.style.display = 'flex';
+            loginBtn.style.display = 'none';
+        } else {
+            userMenuOld.style.display = 'none';
+            loginBtn.style.display = 'flex';
+        }
     }
 }
+
+// Toggle header dropdown
+function toggleHeaderDropdown() {
+    const dropdown = document.getElementById('headerDropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('active');
+    }
+}
+
+// Toggle user dropdown (para upload.html)
+function toggleUserDropdown() {
+    const dropdown = document.getElementById('userDropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('active');
+    }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+    // Header dropdown
+    const userMenuHeader = document.getElementById('userMenuHeader');
+    const headerDropdown = document.getElementById('headerDropdown');
+    if (userMenuHeader && headerDropdown && !userMenuHeader.contains(e.target)) {
+        headerDropdown.classList.remove('active');
+    }
+    
+    // Upload page dropdown
+    const userMenu = document.getElementById('userMenu');
+    const userDropdown = document.getElementById('userDropdown');
+    if (userMenu && userDropdown && !userMenu.contains(e.target)) {
+        userDropdown.classList.remove('active');
+    }
+});
 
 // Initialize
 if (typeof document !== 'undefined') {
