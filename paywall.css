@@ -1,0 +1,318 @@
+/* Pay-Per-View Styles */
+
+.paywall-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 15, 30, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 12px;
+}
+
+.paywall-content {
+    text-align: center;
+    padding: 40px;
+}
+
+.paywall-icon {
+    font-size: 4rem;
+    color: #ff6b35;
+    margin-bottom: 20px;
+}
+
+.paywall-title {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.paywall-price {
+    font-size: 3rem;
+    color: #ff6b35;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.paywall-price span {
+    font-size: 1rem;
+    color: #888;
+}
+
+.paywall-features {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    color: #aaa;
+}
+
+.paywall-features li {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.paywall-features i {
+    color: #4CAF50;
+}
+
+.btn-buy {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8555 100%);
+    border: none;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto;
+    transition: all 0.3s;
+}
+
+.btn-buy:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+}
+
+.btn-buy:disabled {
+    background: #555;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.paywall-note {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 20px;
+}
+
+/* Price Tag on Cards */
+.price-tag {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff6b35;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.price-tag.free {
+    background: #4CAF50;
+}
+
+/* Purchase History */
+.purchases-container {
+    margin-right: 240px;
+    margin-top: 60px;
+    padding: 40px;
+}
+
+.purchases-header {
+    margin-bottom: 30px;
+}
+
+.purchases-header h1 {
+    font-size: 1.8rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.purchases-header h1 i {
+    color: #ff6b35;
+}
+
+.purchases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.purchase-item {
+    background: #1a1a2e;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.purchase-item-header {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+}
+
+.purchase-thumb {
+    width: 120px;
+    height: 68px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.purchase-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.purchase-info h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+
+.purchase-meta {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.purchase-price {
+    color: #ff6b35;
+    font-weight: bold;
+}
+
+.purchase-item-actions {
+    padding: 15px;
+    border-top: 1px solid #252550;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-watch {
+    flex: 1;
+    padding: 10px;
+    background: #ff6b35;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Upload Price Setting */
+.price-setting {
+    background: #252550;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.price-setting h4 {
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.price-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.price-option {
+    padding: 10px 20px;
+    border: 2px solid #444;
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.price-option:hover,
+.price-option.active {
+    border-color: #ff6b35;
+    background: rgba(255, 107, 53, 0.1);
+}
+
+.price-option.free {
+    border-color: #4CAF50;
+}
+
+.price-option.free.active {
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.custom-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.custom-price input {
+    width: 100px;
+    padding: 10px;
+    background: #1a1a2e;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #fff;
+    text-align: center;
+}
+
+/* Wallet/Balance */
+.wallet-card {
+    background: linear-gradient(135deg, #ff6b35 0%, #ff8555 100%);
+    padding: 30px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wallet-balance {
+    color: #fff;
+}
+
+.wallet-balance span {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.wallet-balance h2 {
+    font-size: 2.5rem;
+    margin-top: 5px;
+}
+
+.btn-add-funds {
+    padding: 12px 25px;
+    background: #fff;
+    border: none;
+    border-radius: 25px;
+    color: #ff6b35;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .purchases-container {
+        margin-right: 0;
+        padding: 20px;
+    }
+    
+    .wallet-card {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
