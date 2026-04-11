@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RisadaTube - Videos de Comedia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-laugh-beam"></i>
+            <span>RisadaTube</span>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar videos de comedia...">
+            <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="menu-toggle mobile-only" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        
+        <!-- Upload Button - Link CORRETO para ProFreeHost -->
+        <div class="header-auth">
+            <a href="./upload.html" class="btn-upload-header">
+                <i class="fas fa-upload"></i>
+                <span class="btn-text">Upload</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-item active" onclick="filterCategory('all')">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('trending')">
+            <i class="fas fa-fire"></i>
+            <span>Em alta</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('maisvistos')">
+            <i class="fas fa-star"></i>
+            <span>Mais vistos</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('recente')">
+            <i class="fas fa-bolt"></i>
+            <span>Novidades</span>
+        </div>
+        <hr style="border: none; border-top: 1px solid #3a3a6e; margin: 15px 0;">
+        <div class="nav-item" onclick="showCategories()">
+            <i class="fas fa-th-large"></i>
+            <span>Categorias</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('standup')">
+            <i class="fas fa-microphone"></i>
+            <span>Stand-up</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('vine')">
+            <i class="fas fa-video"></i>
+            <span>Vines</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('compilacao')">
+            <i class="fas fa-film"></i>
+            <span>Compilacoes</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('fail')">
+            <i class="fas fa-grin-squint-tears"></i>
+            <span>Fail Moments</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 style="color: white; text-align: center; margin-top: 50px;">
+            <i class="fas fa-tools"></i> Site em manutencao
+        </h1>
+        <p style="color: #ccc; text-align: center; margin-top: 20px;">
+            Estamos trabalhando para melhorar a experiencia!<br>
+            <a href="./upload.html" style="color: #ff6b6b; text-decoration: none;">
+                <i class="fas fa-upload"></i> Ir para Upload
+            </a>
+        </p>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
