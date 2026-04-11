@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RisadaTube - Videos de Comedia</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-laugh-beam"></i>
+            <span>RisadaTube</span>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Buscar videos de comedia...">
+            <button onclick="searchVideos()"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="menu-toggle mobile-only" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        
+        <!-- Upload Button (Publico - Sem Login) -->
+        <div class="header-auth">
+            <a href="upload.html" class="btn-upload-header">
+                <i class="fas fa-upload"></i>
+                <span class="btn-text">Upload</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-item active" onclick="filterCategory('all')">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('trending')">
+            <i class="fas fa-fire"></i>
+            <span>Em alta</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('maisvistos')">
+            <i class="fas fa-star"></i>
+            <span>Mais vistos</span>
+        </div>
+        <div class="nav-item" onclick="filterCategory('recente')">
+            <i class="fas fa-bolt"></i>
+            <span>Novidades</span>
+        </div>
+        <hr style="border: none; border-top: 1px solid #3a3a6e; margin: 15px 0;">
+        <div class="nav-item" onclick="showCategories()">
+            <i class="fas fa-th-large"></i>
+            <span>Categorias</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('standup')">
+            <i class="fas fa-microphone"></i>
+            <span>Stand-up</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('vine')">
+            <i class="fas fa-video"></i>
+            <span>Vines</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('compilacao')">
+            <i class="fas fa-film"></i>
+            <span>Compilacoes</span>
+        </div>
+        <div class="nav-item subcategory" onclick="filterCategory('fail')">
+            <i class="fas fa-grin-squint-tears"></i>
+            <span>Fail Moments</span>
+        </div>
+        <hr style="border: none; border-top: 1px solid #3a3a6e; margin: 15px 0;">
+        <div class="nav-item" onclick="focusSearch()">
+            <i class="fas fa-search"></i>
+            <span>Buscar</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Filter Tags -->
+        <div class="filter-tags">
+            <button class="tag active" onclick="filterCategory('all')">Todos</button>
+            <button class="tag" onclick="filterCategory('standup')">Stand-up</button>
+            <button class="tag" onclick="filterCategory('vine')">Vines</button>
+            <button class="tag" onclick="filterCategory('compilacao')">Compilacoes</button>
+            <button class="tag" onclick="filterCategory('trending')">Trending</button>
+            <button class="tag" onclick="filterCategory('recente')">Recentes</button>
+        </div>
+
+        <!-- Video Grid -->
+        <div class="video-grid" id="videoGrid">
+            <!-- Videos serao inseridos via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Video Player Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-container">
+            <!-- Header igual ao Home -->
+            <header class="header modal-header">
+                <div class="logo" onclick="closeVideo()" style="cursor: pointer;">
+                    <i class="fas fa-laugh-beam"></i>
+                    <span>RisadaTube</span>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar videos...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </header>
+            
+            <!-- Conteudo do Player -->
+            <div class="player-content">
+                <!-- Tags -->
+                <div class="filter-tags player-tags">
+                    <button class="tag" onclick="filterFromPlayer('all')">Todos</button>
+                    <button class="tag" onclick="filterFromPlayer('standup')">Stand-up</button>
+                    <button class="tag" onclick="filterFromPlayer('vine')">Vines</button>
+                    <button class="tag" onclick="filterFromPlayer('compilacao')">Compilacoes</button>
+                    <button class="tag" onclick="filterFromPlayer('fail')">Fail Moments</button>
+                </div>
+                
+                <!-- Video -->
+                <div class="modal-video-section">
+                    <div class="video-wrapper" id="videoWrapper"></div>
+                </div>
+                
+                <!-- Titulo e Info -->
+                <div class="modal-info-section">
+                    <h2 class="video-title-main" id="modalVideoTitle"></h2>
+                    <div class="video-stats" id="modalVideoStats"></div>
+                </div>
+                
+                <!-- Secao de Comentarios -->
+                <div class="comments-section">
+                    <h3><i class="fas fa-comments"></i> Comentarios <span class="comment-count" id="commentCount">0</span></h3>
+                    
+                    <!-- Input de comentario -->
+                    <div class="comment-input-area">
+                        <div class="comment-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="comment-input-wrapper">
+                            <input type="text" id="commentInput" placeholder="Adicionar um comentario..." maxlength="500">
+                            <div class="comment-actions">
+                                <button class="btn-cancel" onclick="clearCommentInput()">Cancelar</button>
+                                <button class="btn-submit" onclick="submitComment()">Comentar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lista de comentarios -->
+                    <div class="comments-list" id="commentsList">
+                        <!-- Comentarios serao inseridos via JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Recomendacoes -->
+                <div class="modal-recommendations">
+                    <h3><i class="fas fa-fire"></i> Recomendados</h3>
+                    <div class="rec-grid" id="modalRecGrid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
